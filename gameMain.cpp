@@ -57,6 +57,7 @@ void Minesweeper::displayField() {
     cout << "Flags Remaining: " << flagsRemaining << endl;
 }
 
+<<<<<<< HEAD
 ////
 
 
@@ -123,7 +124,72 @@ void Minesweeper::playGame() {
         if (checkWin()) {
             cout << "Congratulations! You won!" << endl;
             break;
+=======
+void Minesweeper::placeMines() {
+    // Place mines randomly on the field
+    int minesPlaced = 0;
+    while (minesPlaced < numMines) {
+        int row = rand() % gridSize;
+        int col = rand() % gridSize;
+        if (!mines[row][col]) {
+            mines[row][col] = true;
+            ++minesPlaced;
         }
     }
 }
 
+void Minesweeper::revealLocation(int row, int col) {
+    // Implement logic to reveal the location and update the field
+    if (mines[row][col]) {
+        cout << "Game Over! You hit a mine." << endl;
+        displayField();
+        exit(0);
+    }
+
+    if (field[row][col] == 'c') {
+        // Reveal the current location
+        int adjacentMines = countAdjacentMines(row, col);
+        if (adjacentMines == 0) {
+            // No mines nearby, reveal neighboring locations recursively
+            field[row][col] = '.';
+            for (int i = -1; i <= 1; ++i) {
+                for (int j = -1; j <= 1; ++j) {
+                    int newRow = row + i;
+                    int newCol = col + j;
+                    if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+                        revealLocation(newRow, newCol);
+                    }
+                }
+            }
+        } else {
+            // Display the number of adjacent mines
+            field[row][col] = '0' + adjacentMines;
+>>>>>>> c2d1b756bd6c556ea949fc1f17477d7a0fa435a4
+        }
+    }
+}
+
+<<<<<<< HEAD
+=======
+void Minesweeper::placeFlag(int row, int col) {
+    // Implement logic to place a flag and update the field
+    if (field[row][col] == 'c') {
+        field[row][col] = 'F';
+        --flagsRemaining;
+    } else {
+        cout << "Invalid move. You can only place a flag on a covered location." << endl;
+    }
+}
+
+bool Minesweeper::checkWin() {
+    // Implement logic to check if the player has won
+    for (int i = 0; i < gridSize; ++i) {
+        for (int j = 0; j < gridSize; ++j) {
+            if (mines[i][j] && field[i][j] != 'F') {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+>>>>>>> c2d1b756bd6c556ea949fc1f17477d7a0fa435a4
