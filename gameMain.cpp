@@ -93,14 +93,13 @@ void Minesweeper::revealLocation(int row, int col) {
                 }
             }
         } else {
-            // Display the number of adjacent mines
             field[row][col] = '0' + adjacentMines;
         }
     }
 }
 
+// Implement logic to place a flag and update the field
 void Minesweeper::placeFlag(int row, int col) {
-    // Implement logic to place a flag and update the field
     if (field[row][col] == 'c') {
         field[row][col] = 'F';
         --flagsRemaining;
@@ -109,8 +108,8 @@ void Minesweeper::placeFlag(int row, int col) {
     }
 }
 
+// Implement logic to check if the player has won
 bool Minesweeper::checkWin() {
-    // Implement logic to check if the player has won
     for (int i = 0; i < gridSize; ++i) {
         for (int j = 0; j < gridSize; ++j) {
             if (mines[i][j] && field[i][j] != 'F') {
@@ -121,14 +120,14 @@ bool Minesweeper::checkWin() {
     return true;
 }
 
+// Implement logic to count the number of adjacent mines
 int Minesweeper::countAdjacentMines(int row, int col) {
-    // Implement logic to count the number of adjacent mines
     int count = 0;
     for (int i = -1; i <= 1; ++i) {
         for (int j = -1; j <= 1; ++j) {
             int newRow = row + i;
             int newCol = col + j;
-            if (i != 0 || j != 0) {  // Exclude the center cell
+            if (i != 0 || j != 0) {
                 if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
                     if (mines[newRow][newCol]) {
                         ++count;
