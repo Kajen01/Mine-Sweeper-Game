@@ -57,3 +57,73 @@ void Minesweeper::displayField() {
     cout << "Flags Remaining: " << flagsRemaining << endl;
 }
 
+////
+
+
+
+////
+
+int Minesweeper::countAdjacentMines(int row, int col) {
+    // Implement logic to count the number of adjacent mines
+    int count = 0;
+    for (int i = -1; i <= 1; ++i) {
+        for (int j = -1; j <= 1; ++j) {
+            int newRow = row + i;
+            int newCol = col + j;
+            if (i != 0 || j != 0) {  // Exclude the center cell
+                if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+                    if (mines[newRow][newCol]) {
+                        ++count;
+                    }
+                }
+            }
+        }
+    }
+    return count;
+}
+
+int Minesweeper::convertLetterToIndex(char letter) {
+    return toupper(letter) - 'A';
+}
+
+void Minesweeper::playGame() {
+    placeMines();
+
+    while (true) {
+        displayField();
+
+        cout << "Enter move (e.g., ABF for flag, ABR for reveal): ";
+        string move;
+        cin >> move;
+
+        if (move.size() != 3) {
+            cout << "Invalid move. Please enter a valid move." << endl;
+            continue;
+        }
+
+        int row = convertLetterToIndex(move[0]);
+        int col = convertLetterToIndex(move[1]);
+
+        if (row < 0 || row >= gridSize || col < 0 || col >= gridSize) {
+            cout << "Invalid move. Please enter a valid move." << endl;
+            continue;
+        }
+
+        char action = move[2];
+
+        if (action == 'F') {
+            placeFlag(row, col);
+        } else if (action == 'R') {
+            revealLocation(row, col);
+        } else {
+            cout << "Invalid move. Please enter a valid move." << endl;
+            continue;
+        }
+
+        if (checkWin()) {
+            cout << "Congratulations! You won!" << endl;
+            break;
+        }
+    }
+}
+
