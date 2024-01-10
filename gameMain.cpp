@@ -4,9 +4,6 @@
 21/ENG/006  A. ABINASH
 ***************************/
 
-
-
-
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -142,46 +139,6 @@ int Minesweeper::countAdjacentMines(int row, int col) {
     return count;
 }
 
-void Minesweeper::playGame() {
-    placeMines();
-
-    while (true) {
-        displayField();
-
-        cout << "Enter move (e.g., ABF for flag, ABR for reveal): ";
-        string move;
-        cin >> move;
-
-        if (move.size() != 3) {
-            cout << "Invalid move. Please enter a valid move." << endl;
-            continue;
-        }
-
-        int row = move[0] - 'A';
-        int col = move[1] - 'A';
-
-        if (row < 0 || row >= gridSize || col < 0 || col >= gridSize) {
-            cout << "Invalid move. Please enter a valid move." << endl;
-            continue;
-        }
-
-        char action = move[2];
-
-        if (action == 'F') {
-            placeFlag(row, col);
-        } else if (action == 'R') {
-            revealLocation(row, col);
-        } else {
-            cout << "Invalid move. Please enter a valid move." << endl;
-            continue;
-        }
-
-        if (checkWin()) {
-            cout << "Congratulations! You won!" << endl;
-            break;
-        }
-    }
-}
 
 int main() {
     Minesweeper game(10, 12);  // You can choose a different grid size and number of mines
