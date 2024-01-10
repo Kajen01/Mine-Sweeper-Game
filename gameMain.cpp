@@ -35,12 +35,11 @@ Minesweeper::Minesweeper(int size, int minesCount)
     : gridSize(size), numMines(minesCount), flagsRemaining(minesCount) {
     field.assign(gridSize, vector<char>(gridSize, 'c'));
     mines.assign(gridSize, vector<bool>(gridSize, false));
-    // Initialize the random seed
     srand(static_cast<unsigned>(time(nullptr)));
 }
 
+// Display the current state of the field
 void Minesweeper::displayField() {
-    // Display the current state of the field
     cout << "  ";
     for (int i = 0; i < gridSize; ++i) {
         cout << static_cast<char>('A' + i) << " ";
@@ -57,8 +56,8 @@ void Minesweeper::displayField() {
     cout << "Flags Remaining: " << flagsRemaining << endl;
 }
 
+// Place mines randomly on the field
 void Minesweeper::placeMines() {
-    // Place mines randomly on the field
     int minesPlaced = 0;
     while (minesPlaced < numMines) {
         int row = rand() % gridSize;
@@ -70,8 +69,8 @@ void Minesweeper::placeMines() {
     }
 }
 
+// Implement logic to reveal the location and update the field
 void Minesweeper::revealLocation(int row, int col) {
-    // Implement logic to reveal the location and update the field
     if (mines[row][col]) {
         cout << "Game Over! You hit a mine." << endl;
         displayField();
@@ -221,6 +220,6 @@ int main()
     Minesweeper game(gridSize, numMines);
     game.playGame();
 
-    return 0;
+Â Â Â Â returnÂ 0;
 }
 
