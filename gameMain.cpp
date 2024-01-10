@@ -122,4 +122,27 @@ bool Minesweeper::checkWin() {
     return true;
 }
 
+int Minesweeper::countAdjacentMines(int row, int col) {
+    // Implement logic to count the number of adjacent mines
+    int count = 0;
+    for (int i = -1; i <= 1; ++i) {
+        for (int j = -1; j <= 1; ++j) {
+            int newRow = row + i;
+            int newCol = col + j;
+            if (i != 0 || j != 0) {  // Exclude the center cell
+                if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+                    if (mines[newRow][newCol]) {
+                        ++count;
+                    }
+                }
+            }
+        }
+    }
+    return count;
+}
+
+int Minesweeper::convertLetterToIndex(char letter) {
+    return toupper(letter) - 'A';
+}
+
 
