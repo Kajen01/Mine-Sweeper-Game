@@ -219,6 +219,6 @@ int main()
     Minesweeper game(gridSize, numMines);
     game.playGame();
 
-    return 0;
+	return�0;
 }
 
