@@ -184,6 +184,7 @@ void Minesweeper::playGame() {
     }
 }
 
+
 int main()
 {  
     cout << "1. 10-by-10 (12 Mines)" << endl;
